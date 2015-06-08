@@ -1,0 +1,64 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://mercury.com/ppm/common/1.0" xmlns:dm="http://mercury.com/ppm/dm/1.0" xmlns:ds="http://mercury.com/ppm/dm/service/1.0">
+<soap:Header>
+<wsse:Security soap:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+<wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="SecurityToken-424bffbd-a471-471b-94bd-81d12f4019ff">
+<wsse:Username>[% USER %]</wsse:Username>
+<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">[% PASSWORD %]</wsse:Password>
+</wsse:UsernameToken>
+</wsse:Security>
+</soap:Header>
+<soap:Body>
+<ds:createRequest>
+<ds:requestObj>
+<dm:requestType>[%- requestType.0 -%]</dm:requestType>
+{%- for field in fields -%}
+{% if loop.index0 is divisibleby 2 -%}
+<dm:simpleFields>
+<common:token>{{ field }}</common:token>
+{% else -%}
+<dm:stringValue>{{ field }}</dm:stringValue>
+</dm:simpleFields>
+{% endif -%}
+{%- endfor -%}
+{% if URLReferences is defined -%}
+<dm:URLReferences>
+{% if URLReferences|length == 1 -%}
+<dm:name>{{ URLReferences.0 }}</dm:name>
+<dm:refURL>{{ URLReferences.0 }}</dm:refURL>
+{% elif URLReferences|length == 2 -%}
+<dm:name>{{ URLReferences.0 }}</dm:name>
+<dm:refURL>{{ URLReferences.1 }}</dm:refURL>
+{% elif URLReferences|length == 3 -%}
+<dm:description>{{ URLReferences.0 }}</dm:description>
+<dm:name>{{ URLReferences.1 }}</dm:name>
+<dm:refURL>{{ URLReferences.2 }}</dm:refURL>
+{% elif URLReferences|length == 4 -%}
+<dm:creationDate>{{ URLReferences.0 }}</dm:creationDate>
+<dm:description>{{ URLReferences.1 }}</dm:description>
+<dm:name>{{ URLReferences.2 }}</dm:name>
+<dm:refURL>{{ URLReferences.3 }}</dm:refURL>
+{% elif URLReferences|length == 5 -%}
+<dm:addedBy>{{ URLReferences.0 }}</dm:addedBy>
+<dm:creationDate>{{ URLReferences.1 }}</dm:creationDate>
+<dm:description>{{ URLReferences.2 }}</dm:description>
+<dm:name>{{ URLReferences.3 }}</dm:name>
+<dm:refURL>{{ URLReferences.4 }}</dm:refURL>
+{% endif -%}
+</dm:URLReferences>
+{% endif -%}
+{% if notes is defined -%}
+<dm:notes>
+{% if notes|length == 1 -%}
+<common:creationDate>{{ DATETIME }}</common:creationDate>
+<common:content>{{ notes.0 }}</common:content>
+{% elif notes|length == 2 -%}
+<common:author>{{ notes.0 }}</common:author>
+<common:creationDate>{{ DATETIME }}</common:creationDate>
+<common:content>{{ notes.1 }}</common:content>
+{% endif -%}
+</dm:notes>
+{% endif -%}
+</ds:requestObj>
+</ds:createRequest>
+</soap:Body>
+</soap:Envelope>

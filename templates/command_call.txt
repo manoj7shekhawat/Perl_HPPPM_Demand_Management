@@ -1,0 +1,3 @@
+perl -d hpppm_demand.pl -o createRequest -u user -p password -f data\sample.xml -c conf\log.conf
+
+prove -vrl -I/home/evarjuy/Perl/lib -I/home/evarjuy/Perl/projects/modules/HPPPM/lib/FieldParser/lib ./t/00-load.t ./t/boilerplate.t ./t/hpppm_demand_management.t ./t/hpppm_errorhandler.t ./t/manifest.t ./t/pod-coverage.t ./t/pod.t ./lib/FieldParser/t/00-load.t ./lib/FieldParser/t/boilerplate.t ./lib/FieldParser/t/field_parser.t ./lib/FieldParser/t/manifest.t ./lib/FieldParser/t/pod-coverage.t ./lib/FieldParser/t/pod.t

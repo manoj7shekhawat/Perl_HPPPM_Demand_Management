@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://mercury.com/ppm/common/1.0" xmlns:dm="http://mercury.com/ppm/dm/1.0" xmlns:ds="http://mercury.com/ppm/dm/service/1.0">
+<soap:Header>
+<wsse:Security soap:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+<wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="SecurityToken-424bffbd-a471-471b-94bd-81d12f4019ff">
+<wsse:Username>{{ USER }}</wsse:Username>
+<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{{ PASSWORD }}</wsse:Password>
+</wsse:UsernameToken>
+</wsse:Security>
+</soap:Header>
+<soap:Body>
+<ds:executeWFTransitions>
+<ds:receiver>
+<dm:id>{{ receiver.0 }}</dm:id>
+</ds:receiver>
+<ds:transition>{{ transition.0 }}</ds:transition>
+</ds:executeWFTransitions>
+</soap:Body>
+</soap:Envelope>
