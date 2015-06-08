@@ -27,6 +27,11 @@ my $build = Module::Build->new
 	    'HPPPM::ErrorHandler'       => '0.01',
             'HPPPM::Demand::Management' => '0.01',
 	},
+    meta_merge => {
+        resources => {
+            repository => 'https://github.com/manoj7shekhawat/Perl_HPPPM_Demand_Management'
+        }
+    },
     );
 
 $build->create_build_script;
