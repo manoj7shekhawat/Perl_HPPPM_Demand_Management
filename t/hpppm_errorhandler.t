@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use Config;
 use Test::More tests => 11;
 
 BEGIN { use_ok('HPPPM::Demand::Management') }
@@ -37,5 +38,7 @@ is_deeply(
     { faultcode => 'UNKNOWN', faultstring => 'GUID' },
     'Testing fault extraction'
 );
-is( $hpppm->check_url_availability($url), 1, 'Testing check_url_availablilty' );
-
+SKIP: {
+    skip "Skipping for FreeBSD OS", 1 if ($Config{myuname} =~ /freebsd/i);
+    is( $hpppm->check_url_availability($url), 1, 'Testing check_url_availablilty' );
+}
